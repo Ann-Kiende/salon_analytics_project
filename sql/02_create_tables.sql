@@ -35,7 +35,7 @@ CREATE TABLE Services(
 CREATE TABLE Clients(
     ClientID INT IDENTITY (1,1) PRIMARY KEY,
     ClientName VARCHAR(100) NOT NULL,
-    PhoneNumber VARCHAR(20)
+    PhoneNumber VARCHAR(20) NOT NULL
 )
 
 -- Appointments Table
