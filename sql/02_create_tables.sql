@@ -37,3 +37,21 @@ CREATE TABLE Clients(
     ClientName VARCHAR(100) NOT NULL,
     PhoneNumber VARCHAR(20)
 )
+
+-- Appointments Table
+
+CREATE TABLE Appointments (
+    AppointmentID INT IDENTITY(1,1) PRIMARY KEY,
+    AppointmentDate DATE NOT NULL,
+    NailTechID INT NOT NULL,
+    ClientID INT NOT NULL,
+    ServiceID INT NOT NULL,
+    Amount INT NOT NULL,
+    Tip INT DEFAULT 0,
+    PaymentModeID INT NOT NULL,
+
+    FOREIGN KEY (NailTechID) REFERENCES NailTechs(NailTechID),
+    FOREIGN KEY (ClientID) REFERENCES Clients(ClientID),
+    FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
+    FOREIGN KEY (PaymentModeID) REFERENCES PaymentModes(PaymentModeID)
+)
