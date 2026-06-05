@@ -58,3 +58,55 @@ Use TRY_CONVERT during transformation and identify rows that fail conversion bef
 ### Concept Learned
 
 Real-world data is rarely perfectly consistent and requires validation before loading.
+
+# Salon Analytics Project Notes
+
+## Issue 4: Data cleaning for missing or placeholder values
+
+### Problem
+
+Some records contained placeholder values:
+
+- ClientName = '--'
+- PhoneNumber = '--'
+
+This caused issues for building a proper Clients table with UNIQUE constraints on PhoneNumber.
+
+### Solution
+
+All placeholder values were replaced with:
+
+- ClientName → "Walk-In Client"
+- PhoneNumber → "Unknown"
+
+This ensured:
+
+- No violation of UNIQUE constraints
+- No loss of transactional data
+- Walk-in customers are still included in analysis
+
+---
+
+## Issue 5: Understanding empty string vs NULL in SQL
+
+### Problem
+
+During data insertion, filtering conditions included:
+
+```sql
+PhoneNumber IS NOT NULL
+PhoneNumber <> ''
+```
+
+### Insight
+
+SQL treats missing data in two ways:
+
+- NULL → value does not exist
+- '' → value exists but is empty
+
+Both must be filtered to ensure clean inserts into production tables.
+
+### Learning
+
+Data cleaning must account for both NULL and empty string values, especially when importing from CSV/Excel sources.
