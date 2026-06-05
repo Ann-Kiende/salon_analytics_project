@@ -1,5 +1,5 @@
 CREATE TABLE RawSalonRecords (
-    AppointmentDate DATE,
+    AppointmentDate VARCHAR(20),
     NailTech VARCHAR(100),
     ClientName VARCHAR(100),
     PhoneNumber VARCHAR(20),
