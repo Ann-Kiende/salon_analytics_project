@@ -35,3 +35,25 @@ INSERT INTO Services (ServiceName)
         ('Manicure'),
         ('Press Ons'),
         ('Eyelashes Repair');
+
+
+-- Insert real data from staging RawSalonData to::::
+
+-- NailTechs Table
+
+INSERT INTO NailTechs (NailTechName)
+SELECT DISTINCT NailTech
+FROM RawSalonRecords
+WHERE NailTech IS NOT NULL
+
+-- Clients Table
+
+INSERT INTO Clients(ClientName, PhoneNumber)
+SELECT DISTINCT
+    TRIM(ClientName),
+    TRIM(PhoneNumber)
+FROM RawSalonRecords
+WHERE ClientName IS NOT NULL
+  AND PhoneNumber IS NOT NULL
+AND TRIM(ClientName) <> ''
+AND TRIM(PhoneNumber) <> ''
