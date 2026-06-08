@@ -45,7 +45,6 @@ CREATE TABLE Appointments (
     AppointmentDate DATE NOT NULL,
     NailTechID INT NOT NULL,
     ClientID INT NOT NULL,
-    Amount INT NOT NULL,
     Tip INT DEFAULT 0,
     PaymentModeID INT NOT NULL,
 
