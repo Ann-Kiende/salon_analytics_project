@@ -110,3 +110,15 @@ Both must be filtered to ensure clean inserts into production tables.
 ### Learning
 
 Data cleaning must account for both NULL and empty string values, especially when importing from CSV/Excel sources.
+
+---
+
+## Issue 6: Eliminating redundant column
+
+### Problem
+
+Amount of each service was redundant as it was appearing in multiple tables: Appointments and AppointmentServices
+
+### Learning
+
+To be able to clean and analyze data with high optimization, Amount column in Appointments table was dropped.
