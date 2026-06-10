@@ -47,6 +47,7 @@ CREATE TABLE Appointments (
     ClientID INT NOT NULL,
     Tip INT DEFAULT 0,
     PaymentModeID INT NOT NULL,
+    Amount INT NOT NULL,
 
     FOREIGN KEY (NailTechID) REFERENCES NailTechs(NailTechID),
     FOREIGN KEY (ClientID) REFERENCES Clients(ClientID),
