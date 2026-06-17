@@ -23,3 +23,15 @@ SELECT columns
 FROM left_table
 LEFT JOIN right_table ON
 join_condition;
+
+<!-- How to find constraint name, that is, foreign keys -->
+
+Syntax:
+SELECT name
+FROM sys.foreign_keys
+WHERE parent_object_id = OBJECT_ID('YourTableName');
+
+Example:
+SELECT name
+FROM sys.foreign_keys
+WHERE parent_object_id = OBJECT_ID('Appointments')
