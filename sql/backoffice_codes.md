@@ -42,3 +42,11 @@ ALTER TABLE AppointmentServices
 ADD NailTechID INT NOT NULL
 CONSTRAINT FK_AppointmentServices_NailTechs
 FOREIGN KEY (NailTechID) REFERENCES NailTechs(NailTechID)
+
+<!-- How to find the data type of a column -->
+
+SELECT
+COLUMN_NAME,
+DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME='Clients'
