@@ -4,7 +4,7 @@ INSERT INTO PaymentModes (PaymentMode)
     VALUES
         ('Paybill'),
         ('Cash'),
-        ('Mpesa'),
+        ('M-Pesa'),
         ('Till'),
         ('Owner Perks'),
         ('Card');
