@@ -50,3 +50,15 @@ COLUMN_NAME,
 DATA_TYPE
 FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME='Clients'
+
+<!-- Update or rename row in MSSQL table  -->
+
+Syntax:
+UPDATE table_name
+SET column_name = 'new_value'
+WHERE condition;
+
+Example:
+UPDATE PaymentModes
+SET PaymentModeName = 'M-Pesa'
+WHERE PaymentModeID = 3
