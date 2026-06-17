@@ -57,9 +57,11 @@ CREATE TABLE AppointmentServices (
     AppointmentID INT NOT NULL,
     ServiceID INT NOT NULL,
     ServiceAmount INT NOT NULL,
+    NailTechID INT NOT NULL
 
     PRIMARY KEY (AppointmentID, ServiceID),
 
     FOREIGN KEY (AppointmentID) REFERENCES Appointments(AppointmentID),
-    FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID)
+    FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
+    FOREIGN KEY (NailTechs) REFERENCES NailTechs(NailTechID)
 )
