@@ -35,3 +35,10 @@ Example:
 SELECT name
 FROM sys.foreign_keys
 WHERE parent_object_id = OBJECT_ID('Appointments')
+
+<!-- ALTER a table AppointmentServices and add a FOREIGN KEY Constraint -->
+
+ALTER TABLE AppointmentServices
+ADD NailTechID INT NOT NULL
+CONSTRAINT FK_AppointmentServices_NailTechs
+FOREIGN KEY (NailTechID) REFERENCES NailTechs(NailTechID)
