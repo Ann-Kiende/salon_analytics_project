@@ -122,3 +122,14 @@ Amount of each service was redundant as it was appearing in multiple tables: App
 ### Learning
 
 To be able to clean and analyze data with high optimization, Amount column in Appointments table was dropped.
+
+## Issue 7: Update schema
+
+### Problem
+
+The previous table structure of Appointments & AppointmentServices was not supporting current business reality, i.e., one client books one appointment (AppointmentID), but this one appointment can have one or multiple services (ServiceID) and can be done by one or more NailTech (NailTechID)
+
+### Learning
+
+ALTER TABLE by ADD(ing) or DROP(ping) COLUMN(s) which has CONSTRAINT(s) like FOREIGN KEY.
+How to find the names of FK CONSTRAINT(s) using query
