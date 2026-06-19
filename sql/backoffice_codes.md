@@ -62,3 +62,18 @@ Example:
 UPDATE PaymentModes
 SET PaymentModeName = 'M-Pesa'
 WHERE PaymentModeID = 3
+
+<!-- JOIN statements for Appointments Table -->
+
+SELECT
+TRY_CONVERT(date, rs.AppointmentDate, 106) AS AppointmentDate,
+c.ClientID,
+c.ClientName,
+Tip,
+p.PaymentModeID
+FROM RawSalonRecords rs
+JOIN Clients c
+ON TRIM(rs.ClientName) = c.ClientName
+AND TRIM(rs.PhoneNumber) = c.PhoneNumber
+JOIN PaymentModes p
+ON rs.PaymentMode = p.PaymentModeName
