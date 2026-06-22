@@ -77,3 +77,8 @@ ON TRIM(rs.ClientName) = c.ClientName
 AND TRIM(rs.PhoneNumber) = c.PhoneNumber
 JOIN PaymentModes p
 ON rs.PaymentMode = p.PaymentModeName
+
+<!-- Count Number of Rows in a table (Appointments) -->
+
+SELECT COUNT (\*) AS AppointmentsCount
+FROM Appointments
