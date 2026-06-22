@@ -113,23 +113,103 @@ Data cleaning must account for both NULL and empty string values, especially whe
 
 ---
 
-## Issue 6: Eliminating redundant column
+## Issue 6: Revenue stored in the wrong table
 
 ### Problem
 
-Amount of each service was redundant as it was appearing in multiple tables: Appointments and AppointmentServices
+The Amount column existed in both Appointments and AppointmentServices.
 
-### Learning
+This created redundancy because service revenue was being stored in two places.
 
-To be able to clean and analyze data with high optimization, Amount column in Appointments table was dropped.
+### Discovery
 
-## Issue 7: Update schema
+A single appointment can contain multiple services, each with its own price.
+
+Example:
+
+- Builder Gel = 1000
+- Nail Art = 300
+
+Appointment total = 1300
+
+The revenue belongs to the services performed, not the appointment itself.
+
+### Solution
+
+Removed Amount from Appointments and stored service revenue in AppointmentServices using the ServiceAmount column.
+
+### Concept Learned
+
+A fact should be stored in one place whenever possible to reduce redundancy and avoid update anomalies.
+
+---
+
+## Issue 7: Appointment schema did not reflect business reality
 
 ### Problem
 
-The previous table structure of Appointments & AppointmentServices was not supporting current business reality, i.e., one client books one appointment (AppointmentID), but this one appointment can have one or multiple services (ServiceID) and can be done by one or more NailTech (NailTechID)
+The original schema assumed:
 
-### Learning
+- One appointment → One service
+- One appointment → One nail technician
 
-ALTER TABLE by ADD(ing) or DROP(ping) COLUMN(s) which has CONSTRAINT(s) like FOREIGN KEY.
-How to find the names of FK CONSTRAINT(s) using query
+However, real salon data showed:
+
+- One appointment can contain multiple services
+- One appointment can be handled by multiple nail technicians
+
+### Discovery
+
+Analysis of RawSalonRecords showed:
+
+- 1276 service records
+- 836 unique appointments
+
+This confirmed that services and appointments are different business entities.
+
+### Solution
+
+Redesigned the schema:
+
+Appointments
+
+- AppointmentID
+- AppointmentDate
+- ClientID
+- Tip
+- PaymentModeID
+
+AppointmentServices
+
+- AppointmentID
+- ServiceID
+- ServiceAmount
+- NailTechID
+
+This allows multiple services and multiple nail technicians to be associated with a single appointment.
+
+### Concept Learned
+
+Database design should model the real business process rather than forcing the business process to fit the database structure.
+
+---
+
+## Issue 8: ETL revealed hidden business rules
+
+### Problem
+
+Initial assumptions suggested that each row in the spreadsheet represented one appointment.
+
+### Discovery
+
+Inspection of the data showed that each row actually represented one service performed.
+
+Multiple rows could belong to the same customer visit.
+
+### Solution
+
+Used grouping logic during ETL to identify unique appointments separately from individual services.
+
+### Concept Learned
+
+Understanding the grain of the data is one of the most important steps in data modeling and analytics.
