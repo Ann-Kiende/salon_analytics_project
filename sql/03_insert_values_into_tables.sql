@@ -77,3 +77,35 @@ GROUP BY
     TRY_CONVERT(date, rs.AppointmentDate, 106),
     c.ClientID,
     p.PaymentModeID
+
+-- AppointmentServices Table
+INSERT INTO AppointmentServices (
+    AppointmentID,
+    ServiceID,
+    ServiceAmount,
+    NailTechID
+)
+SELECT
+    a.AppointmentID,
+    s.ServiceID,
+    rs.Amount,
+    nt.NailTechID
+FROM RawSalonRecords rs
+
+JOIN Clients c
+    ON TRIM(rs.ClientName) = c.ClientName
+   AND TRIM(rs.PhoneNumber) = c.PhoneNumber
+
+JOIN PaymentModes pm
+    ON rs.PaymentMode = pm.PaymentModeName
+
+JOIN Appointments a
+    ON a.AppointmentDate = TRY_CONVERT(date, rs.AppointmentDate, 106)
+   AND a.ClientID = c.ClientID
+   AND a.PaymentModeID = pm.PaymentModeID
+
+JOIN Services s
+    ON TRIM(rs.ServiceName) = s.ServiceName
+
+JOIN NailTechs nt
+    ON TRIM(rs.NailTech) = nt.NailTechName;
