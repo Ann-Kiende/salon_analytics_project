@@ -213,3 +213,32 @@ Used grouping logic during ETL to identify unique appointments separately from i
 ### Concept Learned
 
 Understanding the grain of the data is one of the most important steps in data modeling and analytics.
+
+---
+
+## Issue 9: Composite key did not match real salon transactions
+
+### Problem:
+
+AppointmentServices used a composite primary key
+(AppointmentID, ServiceID).
+
+### Discovery:
+
+Real payment data showed the same service could appear
+multiple times within a single appointment.
+
+Examples:
+
+- Client pays for herself and another person.
+- Same service performed multiple times during one visit.
+
+### Solution:
+
+Replaced composite primary key with
+AppointmentServiceID surrogate key.
+
+### Concept Learned:
+
+A database key should reflect real-world uniqueness,
+not assumptions about how data should behave.
