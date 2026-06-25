@@ -94,3 +94,24 @@ GROUP BY
     c.ClientID
 ORDER BY
     NumberOfAppointments DESC
+
+-- 9. Which payment method is most popular
+-- Insights
+-- 1,Paybill,1069
+-- 2,Cash,150
+-- 3,M-Pesa,46
+-- 5,Owner Perks,11
+
+
+SELECT
+    pm.PaymentModeID,
+    pm.PaymentModeName,
+    COUNT(rs.PaymentMode) AS PMOccurences
+FROM PaymentModes pm
+JOIN RawSalonRecords rs
+    ON pm.PaymentModeName = rs.PaymentMode
+GROUP BY
+    PaymentModeID,
+    PaymentModeName
+ORDER BY
+    PMOccurences DESC
