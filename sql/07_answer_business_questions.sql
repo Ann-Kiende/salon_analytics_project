@@ -17,7 +17,9 @@ GROUP BY
 ORDER BY
     Revenue DESC
 
--- 5. Which nail tech generates the most revenue
+-- 5. Which nail tech generates the most revenue 
+-- OR
+-- 1. Revenue per Nail Tech
 
 -- ## Business Insight
 -- 2,392605
@@ -36,3 +38,59 @@ GROUP BY
     nt.NailTechID
 ORDER BY
     TotalSales DESC
+
+-- 6. Which nail tech performs the most services
+-- Insights
+-- 2
+
+SELECT
+    nt.NailTechID,
+    COUNT(s.ServiceID) as TotalServices
+FROM AppointmentServices aps
+JOIN NailTechs nt
+    ON aps.NailTechID = nt.NailTechID
+JOIN Services s
+    ON aps.ServiceID = s.ServiceID
+GROUP BY
+    nt.NailTechID
+ORDER BY
+    TotalServices DESC
+
+-- 12. Which clients have had the most services & how much have they spent in the first half of 2026 (the data that we currently have) 
+-- Insights
+-- 389,133,85020
+-- 378,18,14100
+-- 127,11,12010
+-- 121,12,10050
+-- 9,11,9570
+
+SELECT
+    c.ClientID,
+    COUNT(*) as Visits,
+    SUM(Amount) AS TotalAmount
+FROM RawSalonRecords rs
+JOIN Clients c
+    ON rs.PhoneNumber = c.PhoneNumber
+GROUP BY
+    c.ClientID
+ORDER BY
+    TotalAmount DESC
+
+-- 7. Which clients visit most often
+-- Insight
+-- 389,72
+-- 9,10
+-- 157,10
+-- 256,10
+-- 120,8
+
+SELECT
+    c.ClientID,
+    COUNT(aps.AppointmentID) as NumberOfAppointments
+FROM Clients c
+    JOIN Appointments aps
+    ON c.ClientID = aps.ClientID
+GROUP BY
+    c.ClientID
+ORDER BY
+    NumberOfAppointments DESC
