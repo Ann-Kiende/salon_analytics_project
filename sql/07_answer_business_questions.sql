@@ -115,3 +115,25 @@ GROUP BY
     PaymentModeName
 ORDER BY
     PMOccurences DESC
+
+-- 9. Which day makes the most money
+-- Insights
+-- Saturday,197445
+-- Thursday,152090
+-- Friday,139290
+-- Wednesday,132190
+-- Tuesday,129020
+-- Sunday,111420
+-- Monday,85750
+
+
+SELECT
+    DATENAME(WEEKDAY, a.AppointmentDate) AS DayName,
+    SUM(aps.ServiceAmount) as DoWRevenue
+FROM Appointments a
+JOIN AppointmentServices aps
+    ON a.AppointmentID = aps.AppointmentID
+GROUP BY
+    DATENAME(WEEKDAY, a.AppointmentDate)
+ORDER BY
+    DoWRevenue DESC

@@ -16,7 +16,8 @@
 
 <!-- 9. Which payment method is most popular -->
 
-9. Which day makes the most money
+<!-- 9. Which day makes the most money -->
+
 10. Which services are often bought together
 
 <!-- 12. Which clients have had the most services -->
