@@ -139,3 +139,24 @@ ORDER BY
     DoWRevenue DESC
 
 -- 8. Who are the highest-spending clients
+-- Insights
+-- 361,85020
+-- 350,14100
+-- 116,12010
+-- 110,10050
+-- 9,9570
+
+SELECT
+    c.ClientID,
+--     c.ClientName,
+--     c.PhoneNumber,
+    SUM(aps.ServiceAmount) AS TotalAmount
+FROM Clients c
+JOIN Appointments a
+    ON c.ClientID = a.ClientID
+JOIN AppointmentServices aps
+    ON a.AppointmentID = aps.AppointmentID
+GROUP BY
+    c.ClientID, c.ClientName, c.PhoneNumber
+ORDER BY
+    TotalAmount DESC
