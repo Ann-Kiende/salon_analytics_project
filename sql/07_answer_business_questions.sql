@@ -116,7 +116,7 @@ GROUP BY
 ORDER BY
     PMOccurences DESC
 
--- 9. Which day makes the most money
+-- 10. Which day makes the most money
 -- Insights
 -- Saturday,197445
 -- Thursday,152090
@@ -137,3 +137,5 @@ GROUP BY
     DATENAME(WEEKDAY, a.AppointmentDate)
 ORDER BY
     DoWRevenue DESC
+
+-- 8. Who are the highest-spending clients

@@ -50,7 +50,7 @@ WHERE NailTech IS NOT NULL
 
 INSERT INTO Clients(ClientName, PhoneNumber)
 SELECT DISTINCT
-    TRIM(ClientName),
+    MAX(ClientName) AS ClientName,
     TRIM(PhoneNumber)
 FROM RawSalonRecords
 WHERE ClientName IS NOT NULL
