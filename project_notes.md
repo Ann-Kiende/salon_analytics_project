@@ -272,3 +272,45 @@ git diff --staged
 ```
 
 to verify that no sensitive information is being committed.
+
+## Issue 11: Inconsistent client names
+
+### Problem
+
+The same client appeared multiple times with different spellings or name formats while using the same phone number.
+Examples:
+Jane Wangechi
+Jane Wangeci
+Jane Wangeci Njane
+
+### Cause
+
+Client names were entered manually, resulting in inconsistent spelling and varying levels of detail.
+
+### Solution
+
+Treat PhoneNumber as the unique client identifier during ETL and consolidate duplicate records into a single client record.
+
+### Concept Learned
+
+In real-world datasets, natural identifiers such as names are often unreliable. Selecting an appropriate business key (in this case, PhoneNumber) is essential for accurate deduplication and maintaining data quality.
+
+## Issue 12: Identity values do not reset after DELETE
+
+### Problem
+
+After deleting all rows from tables with IDENTITY columns, newly inserted records continued from the previous identity value instead of restarting at 1.
+
+### Cause
+
+In SQL Server, DELETE removes rows but does not reset the identity seed.
+Solution
+
+### Used:
+
+DBCC CHECKIDENT ('TableName', RESEED, 0);
+to reset the identity seed after clearing the table.
+
+### Concept Learned
+
+DELETE removes data, while TRUNCATE removes data and resets identity values. However, TRUNCATE cannot be used on tables referenced by foreign key constraints, making DELETE followed by DBCC CHECKIDENT the appropriate approach when rebuilding related tables.
