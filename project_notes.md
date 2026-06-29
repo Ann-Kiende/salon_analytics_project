@@ -242,3 +242,33 @@ AppointmentServiceID surrogate key.
 
 A database key should reflect real-world uniqueness,
 not assumptions about how data should behave.
+
+## Issue 10: Removing sensitive data from Git history
+
+### Problem
+
+During development, real client phone numbers and employee names were committed to Git as commented examples. Although they were not used by the SQL queries, they became part of the repository history.
+
+### Risk
+
+Simply deleting or editing the latest version of the file does not remove sensitive information from previous Git commits. Anyone with access to the repository history can still retrieve the deleted data.
+
+### Solution
+
+Used an interactive Git rebase to rewrite the affected commits, removed the sensitive comments, amended the commits, and updated the remote repository with the cleaned history.
+
+### Concept Learned
+
+Git records the complete history of a project. Removing sensitive information requires rewriting the commit history rather than only editing the latest version of a file.
+
+### Best Practice Going Forward
+
+- Never commit real client or employee information to a public repository.
+- Use anonymized or synthetic sample data when demonstrating SQL projects.
+- Review staged changes before every commit using:
+
+```bash
+git diff --staged
+```
+
+to verify that no sensitive information is being committed.
