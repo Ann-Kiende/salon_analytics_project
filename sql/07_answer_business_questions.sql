@@ -1,3 +1,24 @@
+-- 13. Which clients haven't returned in 60 days?
+
+SELECT
+    c.ClientID,
+--     c.PhoneNumber,
+    MAX(a.AppointmentDate) AS LastVisit,
+    DATEDIFF(
+        DAY,
+        MAX(a.AppointmentDate),
+        GETDATE()
+    ) AS DaysSinceLastVisit
+FROM Clients c
+JOIN Appointments a
+    ON c.ClientID = a.ClientID
+GROUP BY
+    c.ClientID
+--     c.PhoneNumber
+HAVING DATEDIFF(DAY, MAX(a.AppointmentDate), GETDATE()) > 60
+ORDER BY
+    DaysSinceLastVisit DESC
+
 
 -- 4. Which services generate the most revenue
 
