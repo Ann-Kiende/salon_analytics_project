@@ -12,12 +12,18 @@
 
 <!-- 7. Which clients visit most often -->
 
-8. Who are the highest-spending clients
+<!-- 8. Who are the highest-spending clients -->
 
 <!-- 9. Which payment method is most popular -->
 
 <!-- 10. Which day makes the most money -->
 
-11. Which services are often bought together
+11. Which services are often bought together (Market Basket Analysis)
 
 <!-- 12. Which clients have had the most services -->
+
+13. Which clients haven't returned in 60 days?
+14. Which technician receives the highest average tip?
+15. Average spend by payment method
+16. Average spend per appointment
+17. Average number of services per appointment
