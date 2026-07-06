@@ -206,3 +206,11 @@ GROUP BY
     pm.PaymentModeName
 ORDER BY
     AverageSpend DESC;
+
+-- 15. Average spend per appointment
+
+SELECT
+    AVG(aps.ServiceAmount) AS AvgAmount
+FROM Appointments A
+JOIN AppointmentServices aps
+    ON a.AppointmentID = aps.AppointmentID
