@@ -207,10 +207,21 @@ GROUP BY
 ORDER BY
     AverageSpend DESC;
 
--- 15. Average spend per appointment
+-- 15. Average serrvice price
 
 SELECT
     AVG(aps.ServiceAmount) AS AvgAmount
 FROM Appointments A
 JOIN AppointmentServices aps
     ON a.AppointmentID = aps.AppointmentID
+
+-- 15. Average spend per appointment
+
+SELECT
+    AVG(AppointmentTotal) AS AverageSpendPerAppointment
+FROM (
+SELECT
+    AppointmentID,
+    SUM(ServiceAmount) AS AppointmentTotal
+FROM AppointmentServices
+GROUP BY AppointmentID ) AS AppointmentTotal
