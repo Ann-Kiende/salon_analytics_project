@@ -207,7 +207,7 @@ GROUP BY
 ORDER BY
     AverageSpend DESC;
 
--- 15. Average serrvice price
+-- 15. Average service price
 
 SELECT
     AVG(aps.ServiceAmount) AS AvgAmount
