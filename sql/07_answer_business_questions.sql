@@ -184,28 +184,6 @@ ORDER BY
 
 -- 15. Average spend by payment method
 
-SELECT
-    pm.PaymentModeName,
-    AVG(AppointmentTotal) AS AverageSpend
-FROM
-(
-    SELECT
-        a.AppointmentID,
-        a.PaymentModeID,
-        SUM(aps.ServiceAmount) AS AppointmentTotal
-    FROM Appointments a
-    JOIN AppointmentServices aps
-        ON a.AppointmentID = aps.AppointmentID
-    GROUP BY
-        a.AppointmentID,
-        a.PaymentModeID
-) AS AppointmentTotals
-JOIN PaymentModes pm
-    ON AppointmentTotals.PaymentModeID = pm.PaymentModeID
-GROUP BY
-    pm.PaymentModeName
-ORDER BY
-    AverageSpend DESC;
 
 -- 15. Average service price
 
