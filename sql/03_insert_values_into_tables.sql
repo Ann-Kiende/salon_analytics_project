@@ -59,24 +59,6 @@ AND TRIM(ClientName) <> ''
 AND TRIM(PhoneNumber) <> ''
 
 -- Appointments Table
-INSERT INTO Appointments(AppointmentDate, ClientID, Tip, PaymentModeID)
-
-SELECT
-    TRY_CONVERT(date, rs.AppointmentDate, 106) AS AppointmentDate,
-    c.ClientID,
---     c.ClientName,
-    MAX(ISNULL(Tip, 0)) AS Tip,
-    p.PaymentModeID
-FROM RawSalonRecords rs
-JOIN Clients c
-    ON TRIM(rs.ClientName) = c.ClientName
-    AND TRIM(rs.PhoneNumber) = c.PhoneNumber
-JOIN PaymentModes p
-    ON rs.PaymentMode = p.PaymentModeName
-GROUP BY
-    TRY_CONVERT(date, rs.AppointmentDate, 106),
-    c.ClientID,
-    p.PaymentModeID
 
 -- AppointmentServices Table
 INSERT INTO AppointmentServices (
