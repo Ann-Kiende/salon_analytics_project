@@ -1,3 +1,13 @@
+-- Compare revenue by service - Raw
+
+SELECT
+    ServiceName,
+    COUNT(*) AS Rows,
+    SUM(Amount) as Revenue
+FROM RawSalonRecords
+GROUP BY ServiceName
+ORDER BY ServiceName ASC
+
 -- 13. Which clients haven't returned in 60 days?
 
 SELECT
