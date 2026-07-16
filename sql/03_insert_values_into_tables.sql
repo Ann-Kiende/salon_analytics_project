@@ -59,6 +59,27 @@ AND TRIM(ClientName) <> ''
 AND TRIM(PhoneNumber) <> ''
 
 -- Appointments Table
+INSERT INTO Appointments (
+    AppointmentDate,
+    ClientID,
+    Tip,
+    PaymentModeID
+)
+SELECT
+    TRY_CONVERT(date, rsr.AppointmentDate, 106) AS AppointmentDate,
+    c.ClientID,
+    MAX(ISNULL(rsr.Tip, 0)) AS Tip,
+    pm.PaymentModeID
+FROM RawSalonRecords rsr
+JOIN Clients c
+    ON TRIM(rsr.PhoneNumber) = c.PhoneNumber
+JOIN PaymentModes pm
+    ON rsr.PaymentMode = pm.PaymentModeName
+GROUP BY
+    TRY_CONVERT(date, rsr.AppointmentDate, 106),
+    c.ClientID,
+    pm.PaymentModeID
+
 
 -- AppointmentServices Table
 INSERT INTO AppointmentServices (
@@ -91,3 +112,12 @@ JOIN Services s
 
 JOIN NailTechs nt
     ON TRIM(rs.NailTech) = nt.NailTechName;
+
+-- 
+SELECT
+    COUNT(*) AS RowsThatFailCurrentJoin
+FROM RawSalonRecords rs
+LEFT JOIN Clients c
+    ON TRIM(rs.ClientName) = c.ClientName
+   AND TRIM(rs.PhoneNumber) = c.PhoneNumber
+WHERE c.ClientID IS NULL;
