@@ -314,3 +314,72 @@ to reset the identity seed after clearing the table.
 ### Concept Learned
 
 DELETE removes data, while TRUNCATE removes data and resets identity values. However, TRUNCATE cannot be used on tables referenced by foreign key constraints, making DELETE followed by DBCC CHECKIDENT the appropriate approach when rebuilding related tables.
+
+## Issue 13: Revenue reconciliation after normalization
+
+### Problem
+
+After populating the normalized tables, the total revenue no longer matched the source data.
+
+| Source              | Total Revenue |
+| ------------------- | ------------: |
+| RawSalonRecords     |  Ksh. 947,205 |
+| AppointmentServices |  Ksh. 891,265 |
+
+A total of Ksh. 55,940 was missing after the transformation.
+
+### Investigation
+
+To isolate the problem, revenue was compared at multiple levels:
+
+- Overall revenue
+- Revenue per service
+- Total row counts between tables
+
+Although both RawSalonRecords and AppointmentServices contained 1,276 rows, several services showed lower revenue after normalization.
+
+This indicated that rows were not being lost, but some records were being linked to the wrong appointments during the transformation process.
+
+### Root Cause
+
+The Clients table had been rebuilt using one record per unique phone number, selecting a single client name with:
+
+MAX(ClientName)
+
+However, the ETL process continued joining RawSalonRecords to Clients using both:
+
+- ClientName
+- PhoneNumber
+
+Because the raw data contained inconsistent client names for the same phone number (for example, "Jane Wangechi", "Jane Wangeci", and "Jane Wangeci Njane"), some records were linked incorrectly during the transformation.
+
+### Solution
+
+The ETL process was updated to use PhoneNumber as the business key when joining to the Clients table.
+
+The Appointments table was then rebuilt before repopulating AppointmentServices.
+
+Additional validation included:
+
+- Comparing total row counts
+- Comparing total revenue
+- Comparing revenue by service
+- Verifying the transformed dataset before inserting into production tables
+
+### Result
+
+Revenue reconciliation was successfully completed.
+
+| Table               | Total Revenue |
+| ------------------- | ------------: |
+| RawSalonRecords     |  Ksh. 947,205 |
+| AppointmentServices |  Ksh. 947,205 |
+
+The normalized database now preserves 100% of the source revenue.
+Concepts Learned
+
+- Data reconciliation
+- ETL validation
+- Identifying the correct business key
+- Importance of validating transformations before loading
+- Using aggregate comparisons to detect transformation errors
