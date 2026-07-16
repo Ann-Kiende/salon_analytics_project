@@ -1,5 +1,15 @@
 # Salon Analytics Project Notes
 
+# Project Statistics
+
+- Source Records: 1,276
+- Distinct Appointments: 836
+- Clients: 371
+- Services: 10
+- Nail Technicians: 3
+- Revenue Reconciled: ✅ Ksh. 947,205
+- ETL Status: Completed
+
 ## Issue 1: Multiple services per appointment
 
 ### Problem
