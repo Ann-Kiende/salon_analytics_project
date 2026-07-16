@@ -82,36 +82,40 @@ GROUP BY
 
 
 -- AppointmentServices Table
+
 INSERT INTO AppointmentServices (
     AppointmentID,
     ServiceID,
     ServiceAmount,
     NailTechID
 )
+
 SELECT
     a.AppointmentID,
     s.ServiceID,
-    rs.Amount,
-    nt.NailTechID
-FROM RawSalonRecords rs
+    rsr.Amount AS ServiceAmount,
+    n.NailTechID
+FROM RawSalonRecords rsr
 
 JOIN Clients c
-    ON TRIM(rs.ClientName) = c.ClientName
-   AND TRIM(rs.PhoneNumber) = c.PhoneNumber
+    ON TRIM(rsr.PhoneNumber) = c.PhoneNumber
 
 JOIN PaymentModes pm
-    ON rs.PaymentMode = pm.PaymentModeName
+    ON rsr.PaymentMode = pm.PaymentModeName
 
 JOIN Appointments a
-    ON a.AppointmentDate = TRY_CONVERT(date, rs.AppointmentDate, 106)
-   AND a.ClientID = c.ClientID
-   AND a.PaymentModeID = pm.PaymentModeID
+    ON a.AppointmentDate = TRY_CONVERT(date, rsr.AppointmentDate, 106)
+    AND a.ClientID = c.ClientID
+    AND a.PaymentModeID = pm.PaymentModeID
 
 JOIN Services s
-    ON TRIM(rs.ServiceName) = s.ServiceName
+    ON rsr.ServiceName = s.ServiceName
 
-JOIN NailTechs nt
-    ON TRIM(rs.NailTech) = nt.NailTechName;
+JOIN NailTechs n
+    ON rsr.NailTech = n.NailTechName
+
+ORDER BY AppointmentID
+
 
 -- 
 SELECT
