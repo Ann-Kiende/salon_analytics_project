@@ -48,15 +48,20 @@ WHERE NailTech IS NOT NULL
 
 -- Clients Table
 
-INSERT INTO Clients(ClientName, PhoneNumber)
+INSERT INTO Clients(
+    ClientName, 
+    PhoneNumber
+)
+
 SELECT DISTINCT
     MAX(ClientName) AS ClientName,
     TRIM(PhoneNumber)
 FROM RawSalonRecords
+
 WHERE ClientName IS NOT NULL
   AND PhoneNumber IS NOT NULL
-AND TRIM(ClientName) <> ''
-AND TRIM(PhoneNumber) <> ''
+  AND TRIM(ClientName) <> ''
+  AND TRIM(PhoneNumber) <> ''
 
 -- Appointments Table
 INSERT INTO Appointments (
@@ -65,16 +70,20 @@ INSERT INTO Appointments (
     Tip,
     PaymentModeID
 )
+
 SELECT
     TRY_CONVERT(date, rsr.AppointmentDate, 106) AS AppointmentDate,
     c.ClientID,
     MAX(ISNULL(rsr.Tip, 0)) AS Tip,
     pm.PaymentModeID
 FROM RawSalonRecords rsr
+
 JOIN Clients c
     ON TRIM(rsr.PhoneNumber) = c.PhoneNumber
+
 JOIN PaymentModes pm
     ON rsr.PaymentMode = pm.PaymentModeName
+
 GROUP BY
     TRY_CONVERT(date, rsr.AppointmentDate, 106),
     c.ClientID,
@@ -95,6 +104,7 @@ SELECT
     s.ServiceID,
     rsr.Amount AS ServiceAmount,
     n.NailTechID
+
 FROM RawSalonRecords rsr
 
 JOIN Clients c
@@ -118,10 +128,15 @@ ORDER BY AppointmentID
 
 
 -- 
+
+-- Query that helped me figure out JOIN using ClientName caused mismatch in Total Sales
+
 SELECT
     COUNT(*) AS RowsThatFailCurrentJoin
 FROM RawSalonRecords rs
+
 LEFT JOIN Clients c
     ON TRIM(rs.ClientName) = c.ClientName
    AND TRIM(rs.PhoneNumber) = c.PhoneNumber
+
 WHERE c.ClientID IS NULL;
