@@ -217,7 +217,7 @@ GROUP BY AppointmentID ) AS AppointmentTotal
 -- 14. Which technician receives the highest average tip?
 
 SELECT
-    n.NailTechName,
+    n.NailTechID,
     COUNT(DISTINCT a.AppointmentID) AS TippedAppointments,
     SUM(a.Tip) AS TotalTip,
     AVG(CAST(a.Tip AS DECIMAL(10,2))) AS AvgAppointmentTip
@@ -228,5 +228,5 @@ JOIN Appointments a
     ON aps.AppointmentID = a.AppointmentID
 WHERE a.Tip > 0
 GROUP BY
-    n.NailTechName
+    n.NailTechID
 ORDER BY AvgAppointmentTip DESC
