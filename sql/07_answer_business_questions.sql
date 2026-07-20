@@ -1,3 +1,14 @@
+-- 17. Average number of services per appointment
+
+SELECT
+    AVG(CAST(ServiceCount AS DECIMAL(10, 2))) AS AvgServicesPerAppointment
+    FROM
+( SELECT
+    AppointmentID,
+    COUNT(*) AS ServiceCount
+FROM AppointmentServices
+GROUP BY AppointmentID ) AS AppointmentSummary
+
 -- Compare revenue by service - Raw
 
 SELECT

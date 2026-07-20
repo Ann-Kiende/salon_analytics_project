@@ -23,7 +23,8 @@
 <!-- 12. Which clients have had the most services -->
 
 13. Which clients haven't returned in 60 days?
-14. Which technician receives the highest average tip?
-    <!-- 15. Average spend by payment method -->
-    <!-- 15. Average spend per appointment -->
-15. Average number of services per appointment
+
+<!-- 14. Which technician receives the highest average tip? -->
+<!-- 16. Average spend per appointment -->
+
+<!-- 17. Average number of services per appointment -->
