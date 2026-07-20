@@ -1,3 +1,17 @@
+-- 3. How much has each client spent since becoming a customer?
+
+SELECT
+    c.ClientName,
+    c.PhoneNumber,
+    SUM(aps.ServiceAmount) AS LifetimeValue
+FROM Appointments a
+JOIN Clients c
+    ON a.ClientID = c.ClientID
+JOIN AppointmentServices aps
+    ON a.AppointmentID = aps.AppointmentID
+GROUP BY c.ClientName, c.PhoneNumber
+ORDER BY LifetimeValue DESC
+
 -- 17. Average number of services per appointment
 
 SELECT

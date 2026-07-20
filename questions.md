@@ -2,8 +2,8 @@
 
 <!-- 1. Revenue per Nail Tech -->
 
-2. Most profitable service
-3. Client lifetime value
+<!-- 2. Most profitable service -->
+<!-- 3. Client lifetime value -->
 
 <!-- 4. Which services generate the most revenue -->
 <!-- 5. Which nail tech generates the most revenue -->
