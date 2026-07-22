@@ -1,3 +1,21 @@
+-- 11. Which services are often bought together (Market Basket Analysis)
+
+SELECT
+    s1.ServiceName AS Service1,
+    s2.ServiceName AS Service2,
+    COUNT(*) AS TimesBoughtTogether
+FROM AppointmentServices aps1
+
+JOIN AppointmentServices aps2
+    ON aps1.AppointmentID = aps2.AppointmentID
+    AND aps1.ServiceID < aps2.ServiceID
+
+JOIN Services s1
+    ON aps1.ServiceID = s1.ServiceID
+
+JOIN Services s2
+    ON aps2.ServiceID = s2.ServiceID
+
 -- 3. How much has each client spent since becoming a customer?
 
 SELECT

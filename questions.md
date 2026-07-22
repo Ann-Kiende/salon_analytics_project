@@ -18,11 +18,11 @@
 
 <!-- 10. Which day makes the most money -->
 
-11. Which services are often bought together (Market Basket Analysis)
+<!-- 11. Which services are often bought together (Market Basket Analysis) -->
 
 <!-- 12. Which clients have had the most services -->
 
-13. Which clients haven't returned in 60 days?
+<!-- 13. Which clients haven't returned in 60 days? -->
 
 <!-- 14. Which technician receives the highest average tip? -->
 <!-- 16. Average spend per appointment -->
