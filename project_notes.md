@@ -1,14 +1,66 @@
 # Salon Analytics Project Notes
 
-# Project Statistics
+This document records the real engineering and data challenges encountered while designing and building the Salon Analytics Project. Each issue documents:
 
-- Source Records: 1,276
-- Distinct Appointments: 836
+- the business or technical problem,
+- how it was investigated,
+- the solution implemented,
+- and the SQL or database concepts learned.
+
+Rather than only presenting the final solution, these notes capture the reasoning and decisions made throughout the project.
+
+## Table of Contents
+
+### Project Overview
+
+- Project Statistics
+
+### Data Modeling & ETL
+
+- Issue 1: Multiple services per appointment
+- Issue 2: Raw CSV date import failure
+- Issue 3: Inconsistent date formats
+- Issue 4: Data cleaning for missing values
+- Issue 5: Empty string vs NULL
+- Issue 6: Revenue stored in the wrong table
+- Issue 7: Appointment schema did not reflect business reality
+- Issue 8: ETL revealed hidden business rules
+- Issue 9: Composite key did not match real salon transactions
+
+### Engineering Lessons
+
+- Issue 10: Removing sensitive data from Git history
+- Issue 11: Inconsistent client names
+- Issue 12: Identity values do not reset after DELETE
+- Issue 13: Revenue reconciliation after normalization
+
+### Business Analytics
+
+- Issue 14: Market Basket Analysis using Self Joins
+
+## Project Overview
+
+### Dataset Statistics
+
+- Raw records: 1,276
 - Clients: 371
-- Services: 10
-- Nail Technicians: 3
-- Revenue Reconciled: ✅ Ksh. 947,205
-- ETL Status: Completed
+- Services: 22
+- Appointments: 836
+- Nail technicians: 3
+- Total Revenue: Ksh. 947,205
+
+### Database
+
+- SQL Server
+- Docker
+- DataGrip
+
+### Current Status
+
+- ✔ Database normalized to 3NF
+- ✔ ETL pipeline completed
+- ✔ Revenue fully reconciled
+- ✔ Business questions implemented
 
 ## Issue 1: Multiple services per appointment
 
