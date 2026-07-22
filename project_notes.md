@@ -69,8 +69,6 @@ Use TRY_CONVERT during transformation and identify rows that fail conversion bef
 
 Real-world data is rarely perfectly consistent and requires validation before loading.
 
-# Salon Analytics Project Notes
-
 ## Issue 4: Data cleaning for missing or placeholder values
 
 ### Problem
@@ -393,3 +391,55 @@ Concepts Learned
 - Identifying the correct business key
 - Importance of validating transformations before loading
 - Using aggregate comparisons to detect transformation errors
+
+## Issue 14: Market Basket Analysis using Self Joins
+
+### Problem
+
+The business needed to identify which salon services are frequently purchased together during the same appointment. This information can be used to:
+
+- Create bundled service packages
+- Recommend complementary services to clients
+- Design targeted promotions
+- Better understand customer purchasing behaviour
+
+### Challenge
+
+Each appointment may contain multiple services stored as separate rows in the `AppointmentServices` table. The challenge was comparing every service within the same appointment without creating duplicate combinations such as:
+
+```sql
+Builder Gel + Pedicure
+Pedicure + Builder Gel
+```
+
+or pairing a service with itself.
+
+### Solution
+
+Used a self join on the `AppointmentServices` table to compare services belonging to the same appointment.
+
+The join condition:
+
+```sql
+aps1.AppointmentID = aps2.AppointmentID
+```
+
+ensures that only services from the same appointment are compared.
+
+The additional condition:
+
+```sql
+aps1.ServiceID < aps2.ServiceID
+```
+
+eliminates duplicate combinations and prevents a service from being paired with itself.
+
+The resulting service pairs were then grouped and counted to determine how frequently each combination occurs.
+
+### Concepts Learned
+
+- Self joins
+- Market Basket Analysis
+- Customer purchasing behaviour analysis
+- Eliminating duplicate pairs using comparison operators
+- Using COUNT() and GROUP BY for frequency analysis
