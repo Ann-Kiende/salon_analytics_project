@@ -37,3 +37,7 @@
 18. Revenue contribution by each service (%)
 19. Running monthly revenue (Window Functions later)
 20. Add June records without deleting the data that's already present in production tables
+
+Visuals:
+
+1. Does many appointments means more revenue per month?
