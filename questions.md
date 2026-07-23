@@ -28,3 +28,11 @@
 <!-- 16. Average spend per appointment -->
 
 <!-- 17. Average number of services per appointment -->
+
+15. Monthly revenue trend
+16. Revenue by weekday vs weekend
+17. Monthly appointments
+18. Average revenue per client
+19. Revenue contribution by each service (%)
+20. Running monthly revenue (Window Functions later)
+21. Add June records without deleting the data that's already present in production tables
