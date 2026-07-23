@@ -29,7 +29,8 @@
 
 <!-- 17. Average number of services per appointment -->
 
-15. Monthly revenue trend
+<!-- 15. Monthly revenue trend -->
+
 16. Revenue by weekday vs weekend
 <!-- 17. Monthly appointments -->
 17. Average revenue per client

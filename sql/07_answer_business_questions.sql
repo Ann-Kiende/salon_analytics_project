@@ -1,3 +1,17 @@
+-- 15. Monthly revenue trend // How much revenue did the business generate each month?
+
+SELECT
+    DATENAME(month, a.AppointmentDate) AS Month,
+    SUM(aps.ServiceAmount) AS RevenuePM
+FROM Appointments a
+JOIN AppointmentServices aps
+    ON a.AppointmentID = aps.AppointmentID
+GROUP BY
+    MONTH(a.AppointmentDate),
+    DATENAME(month, a.AppointmentDate)
+ORDER BY
+    MONTH(a.AppointmentDate)
+
 -- 17. Monthly appointments // How do appointment volumes vary by month?
 
 SELECT
