@@ -1,3 +1,24 @@
+-- 17. Average revenue per client
+
+SELECT
+    AVG(RevenuePerClient) AS AVGRevenuePerClient
+    FROM
+
+    (SELECT
+        c.ClientID,
+        c.ClientName,
+        SUM(aps.ServiceAmount) AS RevenuePerClient
+    FROM Appointments a
+    JOIN Clients c
+        ON a.ClientID = c.ClientID
+    JOIN AppointmentServices aps
+        ON a.AppointmentID = aps.AppointmentID
+    GROUP BY
+        c.ClientID, c.ClientName
+--     ORDER BY
+--         RevenuePerClient DESC
+    ) AS TotalRevenuePerClient
+
 -- 15. Monthly revenue trend // How much revenue did the business generate each month?
 
 SELECT
