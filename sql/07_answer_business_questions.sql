@@ -1,3 +1,19 @@
+-- 17. Monthly appointments // How do appointment volumes vary by month?
+
+SELECT
+--     YEAR(AppointmentDate) AS Year,
+    DATENAME(month, AppointmentDate) AS MonthNumber,
+    COUNT(*) AS NumberOfAppointments
+FROM Appointments
+GROUP BY
+--     YEAR(AppointmentDate),
+    MONTH(AppointmentDate),
+    DATENAME(month, AppointmentDate)
+ORDER BY
+    MONTH(AppointmentDate)
+--     NumberOfAppointments
+
+
 -- 11. Which services are often bought together (Market Basket Analysis)
 
 SELECT
