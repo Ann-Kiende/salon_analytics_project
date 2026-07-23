@@ -6,7 +6,7 @@ SELECT
 
     (SELECT
         c.ClientID,
-        c.ClientName,
+        -- c.ClientName,
         SUM(aps.ServiceAmount) AS RevenuePerClient
     FROM Appointments a
     JOIN Clients c
@@ -14,7 +14,7 @@ SELECT
     JOIN AppointmentServices aps
         ON a.AppointmentID = aps.AppointmentID
     GROUP BY
-        c.ClientID, c.ClientName
+        c.ClientID
 --     ORDER BY
 --         RevenuePerClient DESC
     ) AS TotalRevenuePerClient
