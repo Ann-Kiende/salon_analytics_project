@@ -31,9 +31,11 @@
 
 <!-- 15. Monthly revenue trend -->
 
-16. Revenue by weekday vs weekend
+<!-- 16. Revenue by weekday vs weekend -->
+
     <!-- 17. Monthly appointments -->
     <!-- 17. Average revenue per client -->
+
 17. Revenue contribution by each service (%)
 18. Running monthly revenue (Window Functions later)
 19. Add June records without deleting the data that's already present in production tables

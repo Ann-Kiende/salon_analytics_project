@@ -1,3 +1,26 @@
+-- 16. Revenue by weekday vs weekend
+
+SET DATEFIRST 7;
+
+SELECT
+    CASE
+        WHEN DATEPART(weekday, a.AppointmentID) IN (1, 7) THEN 'Weekend'
+    ELSE
+        'Weekday'
+        END AS day_type,
+    SUM(aps.ServiceAmount) AS DailyRevenue
+FROM Appointments a
+JOIN AppointmentServices aps
+    ON a.AppointmentID = aps.AppointmentID
+GROUP BY
+    CASE
+        WHEN DATEPART(weekday, a.AppointmentID) IN (1, 7) THEN 'Weekend'
+    ELSE
+        'Weekday'
+        END
+ORDER BY
+    DailyRevenue DESC
+
 -- 17. Average revenue per client
 
 SELECT
