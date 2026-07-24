@@ -43,3 +43,7 @@
 Visuals:
 
 1. Does many appointments means more revenue per month?
+
+To-Do:
+
+1. Common Table Expressions (CTEs)
