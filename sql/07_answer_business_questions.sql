@@ -1,13 +1,16 @@
 -- 17. Revenue contribution by each service (%)
-
 SELECT
     s.ServiceName,
     SUM(aps.ServiceAmount) AS RevenuePerService,
-    (SUM(CAST(aps.ServiceAmount AS DECIMAL(10,2))) /
-        (SELECT
-          SUM(ServiceAmount) AS TotalRevenue
-        FROM AppointmentServices
-          )) * 100 AS PercentagePerService
+      CAST(
+            SUM((CAST(aps.ServiceAmount AS DECIMAL(10,2)))) 
+                /
+            (
+                SELECT SUM(ServiceAmount) AS TotalRevenue
+                FROM AppointmentServices
+            ) * 100 
+            AS DECIMAL(10,2) )
+        AS PercentagePerService
 
 FROM Services s
 JOIN AppointmentServices aps
