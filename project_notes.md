@@ -37,6 +37,10 @@ Rather than only presenting the final solution, these notes capture the reasonin
 ### Business Analytics
 
 - Issue 14: Market Basket Analysis using Self Joins
+- Issue 15: SQL integer division caused percentage calculations to return zero
+- Issue 16: Percentage formatting using CAST()
+- Issue 17: Appointment tips must be aggregated during ETL
+- Issue 18: Business rules should drive database design
 
 ## Project Overview
 
@@ -495,3 +499,80 @@ The resulting service pairs were then grouped and counted to determine how frequ
 - Customer purchasing behaviour analysis
 - Eliminating duplicate pairs using comparison operators
 - Using COUNT() and GROUP BY for frequency analysis
+
+## Issue 15: SQL Integer Division Caused Percentage Calculations to Return 0
+
+### Problem
+
+While calculating each service's percentage contribution to total revenue, every percentage was returning 0.
+
+### Root Cause
+
+SQL Server performed integer division because both operands were integers.
+For example:
+207750 / 947205 = 0
+rather than
+207750 / 947205 = 0.2193
+
+The decimal portion was discarded before multiplying by 100.
+
+### Solution
+
+Convert the calculation to decimal before division and cast the final result to the desired precision.
+
+### Lesson Learned
+
+SQL Server follows data type precedence. If both operands are integers, integer division occurs even if the final result is later multiplied.
+
+## Issue 16: Percentage Formatting Using CAST()
+
+### Problem
+
+Changing the precision of individual values did not affect the displayed number of decimal places.
+
+### Root Cause
+
+The CAST() was initially applied to the revenue values instead of the final percentage calculation.
+
+### Solution
+
+Cast the complete percentage expression after the arithmetic is complete.
+
+### Lesson Learned
+
+Apply formatting to the final expression rather than intermediate values when controlling output precision.
+
+## Issue 17: Appointment Tips Must Be Aggregated During ETL
+
+### Problem
+
+Grouping appointments by Tip caused one appointment to split into multiple records.
+
+### Root Cause
+
+An appointment with multiple services may record the tip on only one row of the raw data.
+Grouping by Tip incorrectly treated these rows as different appointments.
+
+### Solution
+
+Use
+`MAX(ISNULL(Tip,0))`
+when creating the Appointments table.
+
+### Lesson Learned
+
+ETL logic should reflect the business process rather than the physical layout of the raw data.
+
+## Issue 18: Business Rules Should Drive Database Design
+
+Examples:
+
+- Multiple services may belong to one appointment
+- Payment mode belongs to an appointment
+- Tip belongs to an appointment
+- Phone number uniquely identifies a client
+- Client name is descriptive, not the identifier
+
+### Lesson Learned
+
+A normalized database should model real business events, not simply remove duplicated data.
