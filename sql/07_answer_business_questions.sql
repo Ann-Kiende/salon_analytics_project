@@ -1,3 +1,22 @@
+-- 17. Revenue contribution by each service (%)
+
+SELECT
+    s.ServiceName,
+    SUM(aps.ServiceAmount) AS RevenuePerService,
+    (SUM(CAST(aps.ServiceAmount AS DECIMAL(10,2))) /
+        (SELECT
+          SUM(ServiceAmount) AS TotalRevenue
+        FROM AppointmentServices
+          )) * 100 AS PercentagePerService
+
+FROM Services s
+JOIN AppointmentServices aps
+    ON s.ServiceID = aps.ServiceID
+GROUP BY
+    s.ServiceName
+ORDER BY
+    PercentagePerService DESC
+
 -- 16. Revenue by weekday vs weekend
 
 SET DATEFIRST 7;
