@@ -48,3 +48,41 @@ Visuals:
 To-Do:
 
 1. Common Table Expressions (CTEs)
+
+## ChatGPT question recommendation
+
+### Financial Analysis
+
+Revenue growth month-over-month
+Average daily revenue
+Revenue volatility (best vs worst days)
+Revenue concentration (top 20% of clients contribute what %?)
+
+### Customer Analytics
+
+New vs returning customers
+Client retention rate
+Repeat purchase rate
+Average days between customer visits
+Customer segmentation (High / Medium / Low value)
+
+### Service Analytics
+
+Services with highest repeat rate
+Services frequently followed by another service
+Service popularity over time
+Revenue vs frequency (a service might be popular but not profitable)
+
+### Technician Analytics
+
+Revenue per technician per month
+Average appointment value by technician
+Productivity (appointments/day)
+Tip percentage by technician
+
+### Operational Analytics
+
+Peak appointment hours (if you have times)
+Capacity utilisation
+Appointment distribution across weekdays
+Monthly appointment growth
