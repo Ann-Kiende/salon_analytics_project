@@ -25,29 +25,29 @@
 <!-- 13. Which clients haven't returned in 60 days? -->
 
 <!-- 14. Which technician receives the highest average tip? -->
-<!-- 16. Average spend per appointment -->
+<!-- 15. Average spend per appointment -->
 
-<!-- 17. Average number of services per appointment -->
+<!-- 16. Average number of services per appointment -->
 
-<!-- 15. Monthly revenue trend -->
+<!-- 17. Monthly revenue trend -->
 
-<!-- 16. Revenue by weekday vs weekend -->
+<!-- 18. Revenue by weekday vs weekend -->
 
-    <!-- 17. Monthly appointments -->
-    <!-- 17. Average revenue per client -->
+<!-- 19. Monthly appointments -->
+<!-- 20. Average revenue per client -->
 
-<!-- 17. Revenue contribution by each service (%) -->
+<!-- 21. Revenue contribution by each service (%) -->
 
-18. Running monthly revenue (Window Functions later)
-19. Add June records without deleting the data that's already present in production tables
+22. Running monthly revenue (Window Functions later)
+23. Add June records without deleting the data that's already present in production tables
 
 Visuals:
 
-1. Does many appointments means more revenue per month?
+24. Does many appointments means more revenue per month?
 
 To-Do:
 
-1. Common Table Expressions (CTEs)
+25. Common Table Expressions (CTEs)
 
 ## ChatGPT question recommendation
 
