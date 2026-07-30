@@ -38,6 +38,8 @@
 
 <!-- 21. Revenue contribution by each service (%) -->
 
+<!-- 22. Revenue Contribution by Technician (What percentage of company revenue comes from each technician?) -->
+
 22. Running monthly revenue (Window Functions later)
 23. Add June records without deleting the data that's already present in production tables
 

@@ -1,4 +1,27 @@
--- 17. Revenue contribution by each service (%)
+-- Revenue Contribution by Technician (What percentage of company revenue comes from each technician?)
+
+SELECT
+    n.NailTechName as Technician,
+    SUM(aps.ServiceAmount) as Revenue,
+
+    CAST(
+        SUM(aps.ServiceAmount) / 
+        (
+            SELECT
+                CAST(SUM(ServiceAmount) AS DECIMAL(10,2))
+            FROM AppointmentServices 
+        ) 
+    AS DECIMAL(10,3)) * 100 AS Contribution
+
+FROM NailTechs n
+JOIN AppointmentServices aps
+    ON n.NailTechID = aps. NailTechID
+GROUP BY
+    NailTechName
+ORDER BY
+    Revenue DESC
+
+-- Revenue contribution by each service (%)
 SELECT
     s.ServiceName,
     SUM(aps.ServiceAmount) AS RevenuePerService,
@@ -20,7 +43,7 @@ GROUP BY
 ORDER BY
     PercentagePerService DESC
 
--- 16. Revenue by weekday vs weekend
+-- Revenue by weekday vs weekend
 
 SET DATEFIRST 7;
 
@@ -43,7 +66,7 @@ GROUP BY
 ORDER BY
     DailyRevenue DESC
 
--- 17. Average revenue per client
+-- Average revenue per client
 
 SELECT
     AVG(RevenuePerClient) AS AVGRevenuePerClient
@@ -64,7 +87,7 @@ SELECT
 --         RevenuePerClient DESC
     ) AS TotalRevenuePerClient
 
--- 15. Monthly revenue trend // How much revenue did the business generate each month?
+-- Monthly revenue trend // How much revenue did the business generate each month?
 
 SELECT
     DATENAME(month, a.AppointmentDate) AS Month,
@@ -78,7 +101,7 @@ GROUP BY
 ORDER BY
     MONTH(a.AppointmentDate)
 
--- 17. Monthly appointments // How do appointment volumes vary by month?
+-- Monthly appointments // How do appointment volumes vary by month?
 
 SELECT
 --     YEAR(AppointmentDate) AS Year,
@@ -94,7 +117,7 @@ ORDER BY
 --     NumberOfAppointments
 
 
--- 11. Which services are often bought together (Market Basket Analysis)
+-- Which services are often bought together (Market Basket Analysis)
 
 SELECT
     s1.ServiceName AS Service1,
@@ -112,7 +135,7 @@ JOIN Services s1
 JOIN Services s2
     ON aps2.ServiceID = s2.ServiceID
 
--- 3. How much has each client spent since becoming a customer?
+-- How much has each client spent since becoming a customer?
 
 SELECT
     c.ClientName,
@@ -126,7 +149,7 @@ JOIN AppointmentServices aps
 GROUP BY c.ClientName, c.PhoneNumber
 ORDER BY LifetimeValue DESC
 
--- 17. Average number of services per appointment
+-- Average number of services per appointment
 
 SELECT
     AVG(CAST(ServiceCount AS DECIMAL(10, 2))) AS AvgServicesPerAppointment
@@ -147,7 +170,7 @@ FROM RawSalonRecords
 GROUP BY ServiceName
 ORDER BY ServiceName ASC
 
--- 13. Which clients haven't returned in 60 days?
+-- Which clients haven't returned in 60 days?
 
 SELECT
     c.ClientID,
@@ -170,7 +193,7 @@ HAVING DATEDIFF(dd, MAX(a.AppointmentDate), GETDATE()) > 60
 ORDER BY DaysSinceLastVisit DESC
 
 
--- 4. Which services generate the most revenue
+-- Which services generate the most revenue
 
 -- ## Business Insight
 -- Builder Gel = 207750
@@ -188,9 +211,9 @@ GROUP BY
 ORDER BY
     Revenue DESC
 
--- 5. Which nail tech generates the most revenue 
+-- Which nail tech generates the most revenue 
 -- OR
--- 1. Revenue per Nail Tech
+-- Revenue per Nail Tech
 
 -- ## Business Insight
 -- 2,392605
@@ -210,7 +233,7 @@ GROUP BY
 ORDER BY
     TotalSales DESC
 
--- 6. Which nail tech performs the most services
+-- Which nail tech performs the most services
 -- Insights
 -- 2
 
@@ -227,7 +250,7 @@ GROUP BY
 ORDER BY
     TotalServices DESC
 
--- 12. Which clients have had the most services & how much have they spent in the first half of 2026 (the data that we currently have) 
+-- Which clients have had the most services & how much have they spent in the first half of 2026 (the data that we currently have) 
 -- Insights
 -- 389,133,85020
 -- 378,18,14100
@@ -247,7 +270,7 @@ GROUP BY
 ORDER BY
     TotalAmount DESC
 
--- 7. Which clients visit most often
+-- Which clients visit most often
 -- Insight
 -- 389,72
 -- 9,10
@@ -266,7 +289,7 @@ GROUP BY
 ORDER BY
     NumberOfAppointments DESC
 
--- 9. Which payment method is most popular
+-- Which payment method is most popular
 -- Insights
 -- 1,Paybill,1069
 -- 2,Cash,150
@@ -287,7 +310,7 @@ GROUP BY
 ORDER BY
     PMOccurences DESC
 
--- 10. Which day makes the most money
+-- Which day makes the most money
 -- Insights
 -- Saturday,197445
 -- Thursday,152090
@@ -309,7 +332,7 @@ GROUP BY
 ORDER BY
     DoWRevenue DESC
 
--- 8. Who are the highest-spending clients
+-- Who are the highest-spending clients
 -- Insights
 -- 361,85020
 -- 350,14100
