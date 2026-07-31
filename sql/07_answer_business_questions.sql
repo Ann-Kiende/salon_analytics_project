@@ -1,3 +1,19 @@
+-- Revenue Growth (month-over-month) | (How much did revenue grow compared to the previous month?)
+SELECT
+    s.ServiceName,
+    SUM(aps.ServiceAmount) AS RevenueService,
+    AVG(ServiceAmount) OVER (PARTITION BY aps.ServiceID) AS Avg_RevenuePerService
+FROM Services s
+JOIN AppointmentServices aps
+    ON s.ServiceID = aps.ServiceID
+GROUP BY
+    s.ServiceName,
+    aps.ServiceID
+ORDER BY
+    RevenueService,
+    AVG(ServiceAmount) OVER (PARTITION BY aps.ServiceID)
+
+
 -- Revenue Contribution by Technician (What percentage of company revenue comes from each technician?)
 
 SELECT
