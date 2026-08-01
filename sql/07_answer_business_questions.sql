@@ -13,6 +13,16 @@ ORDER BY
     RevenueService,
     AVG(ServiceAmount) OVER (PARTITION BY aps.ServiceID)
 
+-- Name, Department, Salary, emp_rank
+
+SELECT
+    Name, Department, Salary,
+    RANK()
+            OVER (
+                PARTITION BY Department
+                    ORDER BY Salary DESC)
+    AS emp_rank
+FROM Employees
 
 -- Revenue Contribution by Technician (What percentage of company revenue comes from each technician?)
 
