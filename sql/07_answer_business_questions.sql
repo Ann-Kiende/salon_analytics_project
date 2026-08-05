@@ -13,6 +13,31 @@ ORDER BY
     RevenueService,
     AVG(ServiceAmount) OVER (PARTITION BY aps.ServiceID)
 
+-- How do services rank by total revenue, and where does each service stand relative to all other services?
+
+SELECT
+    s.ServiceID,
+    s.ServiceName,
+    SUM(ServiceAmount) AS SalesPerService,
+    RANK()
+        OVER (
+--             PARTITION BY s.ServiceName
+            ORDER BY SUM(aps.ServiceAmount)
+        ) AS RevenueRank,
+    -- Percent_rank()
+    CAST(PERCENT_RANK() OVER (
+        ORDER BY SUM(aps.ServiceAmount)
+        ) AS DECIMAL(10,2)) AS CASTPercentRank,
+    PERCENT_RANK() OVER (
+        ORDER BY SUM(aps.ServiceAmount) DESC
+        ) AS PercentRank
+FROM AppointmentServices aps
+JOIN Services s
+        ON s.ServiceID = aps.ServiceID
+GROUP BY
+    s.ServiceID,
+    s.ServiceName
+
 -- Which services generate the highest revenue, ranked from highest to lowest?
 
 SELECT
