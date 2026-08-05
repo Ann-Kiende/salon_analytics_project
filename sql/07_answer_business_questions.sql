@@ -13,6 +13,24 @@ ORDER BY
     RevenueService,
     AVG(ServiceAmount) OVER (PARTITION BY aps.ServiceID)
 
+-- Which services generate the highest revenue, ranked from highest to lowest?
+
+SELECT
+    s.ServiceID,
+    s.ServiceName,
+    SUM(ServiceAmount) AS SalesPerService,
+    RANK()
+        OVER (
+--             PARTITION BY s.ServiceName
+            ORDER BY SUM(aps.ServiceAmount) DESC
+        ) AS RevenueRank
+FROM AppointmentServices aps
+JOIN Services s
+        ON s.ServiceID = aps.ServiceID
+GROUP BY
+    s.ServiceID,
+    s.ServiceName
+
 -- Name, Department, Salary, emp_rank
 
 SELECT
