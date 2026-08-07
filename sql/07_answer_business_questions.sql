@@ -1,17 +1,21 @@
 -- Revenue Growth (month-over-month) | (How much did revenue grow compared to the previous month?)
 SELECT
-    s.ServiceName,
-    SUM(aps.ServiceAmount) AS RevenueService,
-    AVG(ServiceAmount) OVER (PARTITION BY aps.ServiceID) AS Avg_RevenuePerService
-FROM Services s
-JOIN AppointmentServices aps
-    ON s.ServiceID = aps.ServiceID
+    YEAR(a.AppointmentDate) AS Year,
+    DATENAME(month, a.AppointmentDate) AS Month,
+    SUM(aps.ServiceAmount) AS Revenue,
+    LAG(SUM(aps.ServiceAmount), 1, NULL)
+        OVER (
+            ORDER BY MONTH(a.AppointmentDate)
+            ) AS Previous_Month
+FROM AppointmentServices aps
+JOIN Appointments a
+    ON aps.AppointmentID = a.AppointmentID
 GROUP BY
-    s.ServiceName,
-    aps.ServiceID
+    YEAR(a.AppointmentDate),
+    MONTH(a.AppointmentDate),
+    DATENAME(month, a.AppointmentDate)
 ORDER BY
-    RevenueService,
-    AVG(ServiceAmount) OVER (PARTITION BY aps.ServiceID)
+    MONTH(a.AppointmentDate)
 
 -- How do services rank by total revenue, and where does each service stand relative to all other services?
 
@@ -58,14 +62,14 @@ GROUP BY
 
 -- Name, Department, Salary, emp_rank
 
-SELECT
-    Name, Department, Salary,
-    RANK()
-            OVER (
-                PARTITION BY Department
-                    ORDER BY Salary DESC)
-    AS emp_rank
-FROM Employees
+-- SELECT
+--     Name, Department, Salary,
+--     RANK()
+--             OVER (
+--                 PARTITION BY Department
+--                     ORDER BY Salary DESC)
+--     AS emp_rank
+-- FROM Employees
 
 -- Revenue Contribution by Technician (What percentage of company revenue comes from each technician?)
 
